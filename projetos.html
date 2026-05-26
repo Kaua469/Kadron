@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projetos — KADRON Solutions</title>
+    <meta name="description" content="Projetos desenvolvidos por Kauã Biscalchini - Kadron. Sistemas Web, SaaS Financeiro, Cartões Interativos e soluções com IA.">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;700;900&family=Barlow:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #cc0000;
+            --red-dim: #8f0a20;
+            --white: #f0eeea;
+            --gray: #888580;
+            --gray-light: #b0ada8;
+            --dark: #0a0908;
+            --dark2: #111010;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--dark); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
+
+        /* CURSOR */
+        .cursor { position: fixed; width: 10px; height: 10px; background: var(--red); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .2s, height .2s; }
+        .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid rgba(204,0,0,.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: opacity .2s; }
+
+        /* NOISE EFFECT */
+        body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity:.03; pointer-events:none; z-index:0; }
+
+        /* NAVIGATION */
+        nav { position: fixed; top:0; left:0; right:0; z-index:100; padding: 1.2rem 4rem; display:flex; justify-content:space-between; align-items:center; border-bottom: 0.5px solid rgba(255,255,255,.05); background: rgba(10,9,8,.9); backdrop-filter: blur(12px); }
+        .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.3rem; letter-spacing:4px; text-decoration:none; color:var(--white); }
+        .nav-logo span { color:var(--red); }
+        .nav-links { display:flex; gap:2rem; list-style:none; }
+        .nav-links a { font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gray); text-decoration:none; transition:color .2s; }
+        .nav-links a:hover { color:var(--white); }
+        .nav-cta { font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--red); text-decoration:none; border: 0.5px solid var(--red-dim); padding:.5rem 1.2rem; transition:background .2s, color .2s; }
+        .nav-cta:hover { background:var(--red); color:#fff; }
+
+        /* HEADER SECTION */
+        .header-sec { padding: 8rem 4rem 3rem; text-align: center; border-bottom: 0.5px solid rgba(255,255,255,.05); position: relative; }
+        .header-ghost { position:absolute; top:40%; left:50%; transform:translate(-50%,-50%); font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(80px,18vw,220px); letter-spacing:-4px; color:transparent; -webkit-text-stroke:.5px rgba(255,255,255,.04); white-space:nowrap; pointer-events:none; user-select:none; }
+        .header-sec h1 { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(3rem,8vw,6.5rem); line-height:1; letter-spacing:-2px; text-transform:uppercase; position:relative; z-index:1; }
+        .header-sec h1 span { color: var(--red); }
+        .header-sub { font-size:.95rem; color:var(--gray); max-width:500px; line-height:1.8; margin: 1.5rem auto 0; position:relative; z-index:1; }
+
+        /* PORTFOLIO GRID */
+        .portfolio-section { padding: 4rem 4rem 7rem; position: relative; }
+        .proj-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2rem; margin-top:2rem; }
+        .proj-card { background:var(--dark2); border:.5px solid rgba(255,255,255,.05); position:relative; overflow:hidden; min-height: 380px; padding: 3rem; display: flex; flex-direction: column; justify-content: space-between; transition: all .4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .proj-card::before { content:''; position:absolute; inset:0; border:1px solid transparent; transition:border-color .4s; pointer-events:none; }
+        .proj-card:hover { transform: translateY(-4px); background: #161515; border-color: rgba(204,0,0,.3); }
+        .proj-card:hover .proj-num { color: rgba(204,0,0,.15); }
+        .proj-num { font-family: 'Barlow Condensed', sans-serif; font-size: 8rem; font-weight: 900; color: rgba(255,255,255,.02); position: absolute; top: 0rem; right: 1rem; transition: color .4s; pointer-events:none; user-select:none; }
+        .proj-techs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .tech-tag { font-size: .6rem; letter-spacing: .15em; text-transform: uppercase; color: var(--red); border: .5px solid rgba(204,0,0,.3); padding: 4px 8px; background: rgba(204,0,0,.03); border-radius: 2px; }
+        .proj-content { z-index: 1; }
+        .proj-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2.2rem; text-transform: uppercase; margin-bottom: 0.8rem; color: var(--white); letter-spacing: -1px; }
+        .proj-desc { font-size: 0.9rem; color: var(--gray-light); line-height: 1.7; margin-bottom: 2rem; max-width: 90%; }
+        
+        .btn-project { display: inline-flex; align-items: center; gap: 0.5rem; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; text-decoration: none; color: var(--white); border-bottom: 1px solid var(--red); padding-bottom: 4px; transition: color .2s, border-color .2s; width: fit-content; }
+        .btn-project:hover { color: var(--red); border-color: var(--white); }
+        .card-actions { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+        .btn-live { display: inline-flex; align-items: center; gap: 0.4rem; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; text-decoration: none; color: var(--dark); background: var(--red); padding: 6px 14px; transition: background .2s, transform .15s; }
+        .btn-live:hover { background: #e00; transform: translateY(-1px); }
+        .btn-live::before { content: ''; width: 6px; height: 6px; background: #fff; border-radius: 50%; animation: pulse-dot 1.5s infinite; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+
+        /* FOOTER & CTA */
+        .cta-final { padding:9rem 4rem; text-align:center; border-top:.5px solid rgba(255,255,255,.05); }
+        .cta-final h2 { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(2.5rem,7vw,6rem); text-transform:uppercase; line-height:.95; margin-bottom:1.5rem; }
+        .cta-final h2 span { color:var(--red); display:block; }
+        .btn-primary { background:var(--red); color:#fff; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.82rem; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; padding:1rem 2.5rem; display:inline-block; border:none; cursor:pointer; transition:background .2s, transform .15s; text-align: center; }
+        .btn-primary:hover { background:#e00; transform:translateY(-2px); }
+
+        footer { padding:1.8rem 4rem; border-top:.5px solid rgba(255,255,255,.05); display:flex; justify-content:space-between; align-items:center; }
+
+        @media(max-width:900px){
+            nav{padding:1rem 1.5rem;}
+            .nav-links{display:none;}
+            .header-sec{padding:6rem 1.5rem 3rem;}
+            .portfolio-section{padding: 2rem 1.5rem;}
+            .proj-grid{grid-template-columns:1fr; gap: 1.5rem;}
+            .proj-card{padding: 2rem; min-height: 320px;}
+        }
+    </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<nav>
+    <a href="index.html#home" class="nav-logo"><span>KA</span>DRON</a>
+    <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#sobre">Sobre</a></li>
+        <li><a href="#home">Projetos</a></li>
+        <li><a href="index.html#contato">Contato</a></li>
+    </ul>
+    <a href="https://wa.me/5516997821436" class="nav-cta">Orçamento</a>
+</nav>
+
+<header class="header-sec" id="home">
+    <div class="header-ghost">PORTFÓLIO</div>
+    <h1>Meus <span>Projetos</span></h1>
+    <p class="header-sub">Uma seleção de sistemas SaaS, landing pages e aplicações web que desenvolvi focando em alta performance, usabilidade e design premium.</p>
+</header>
+
+<section class="portfolio-section">
+    <div class="proj-grid">
+        <!-- PROJETO 1: GARAGEM DO FRANGO -->
+        <div class="proj-card">
+            <div class="proj-num">01</div>
+            <div>
+                <div class="proj-techs">
+                    <span class="tech-tag">React.js</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">Express</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">Socket.IO</span>
+                </div>
+                <div class="proj-content">
+                    <h3 class="proj-title">Garagem do Frango</h3>
+                    <p class="proj-desc">Sistema SaaS completo para delivery de alimentação. Conta com painel administrativo interativo em tempo real, acompanhamento de pedidos automatizado e cardápio de alta velocidade para o cliente final.</p>
+                </div>
+            </div>
+            <div class="card-actions">
+                <a href="projeto_garagem.html" class="btn-project">Caso de Estudo →</a>
+                <a href="https://garagem-do-frango-v3.vercel.app/inicio" target="_blank" class="btn-live">Ver ao Vivo ↗</a>
+            </div>
+        </div>
+
+        <!-- PROJETO 2: KADRON FINANCE -->
+        <div class="proj-card">
+            <div class="proj-num">02</div>
+            <div>
+                <div class="proj-techs">
+                    <span class="tech-tag">Next.js 15</span>
+                    <span class="tech-tag">Tailwind v4</span>
+                    <span class="tech-tag">Supabase</span>
+                    <span class="tech-tag">Recharts</span>
+                    <span class="tech-tag">React-PDF</span>
+                </div>
+                <div class="proj-content">
+                    <h3 class="proj-title">Kadron Finance</h3>
+                    <p class="proj-desc">SaaS financeiro premium com suporte a múltiplos contextos (pessoal e corporativo). Oferece dashboards dinâmicos, acompanhamento de metas anuais, geração automatizada de relatórios em PDF e controle detalhado de transações.</p>
+                </div>
+            </div>
+            <div class="card-actions">
+                <a href="projeto_financeiro.html" class="btn-project">Caso de Estudo →</a>
+                <a href="https://planilha-financeira-gamma.vercel.app/" target="_blank" class="btn-live">Ver ao Vivo ↗</a>
+            </div>
+        </div>
+
+        <!-- PROJETO 3: CARTÃO KADRON -->
+        <div class="proj-card">
+            <div class="proj-num">03</div>
+            <div>
+                <div class="proj-techs">
+                    <span class="tech-tag">HTML5</span>
+                    <span class="tech-tag">CSS3 3D</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Premium Design</span>
+                </div>
+                <div class="proj-content">
+                    <h3 class="proj-title">Cartão Virtual Kadron</h3>
+                    <p class="proj-desc">Cartão de visita digital corporativo interativo da Kadron. Implementa uma perspectiva 3D realista com efeito de rotação (flip) ao passar o mouse, estilização sob medida e links integrados para WhatsApp e e-mail.</p>
+                </div>
+            </div>
+            <div class="card-actions">
+                <a href="kartao_kadron.html" target="_blank" class="btn-project">Caso de Estudo →</a>
+                <a href="kartao_kadron.html" target="_blank" class="btn-live">Ver ao Vivo ↗</a>
+            </div>
+        </div>
+
+        <!-- PROJETO 4: CARTÃO YNVORYX -->
+        <div class="proj-card">
+            <div class="proj-num">04</div>
+            <div>
+                <div class="proj-techs">
+                    <span class="tech-tag">HTML5</span>
+                    <span class="tech-tag">CSS3</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Minimalismo</span>
+                </div>
+                <div class="proj-content">
+                    <h3 class="proj-title">Cartão Virtual YNVORYX</h3>
+                    <p class="proj-desc">Cartão profissional minimalista criado para a marca de desenvolvimento de software e IA YNVORYX. Apresenta design ultra-limpo, contraste acentuado e links diretos para contato.</p>
+                </div>
+            </div>
+            <div class="card-actions">
+                <a href="kartao_ynvoryx.html" target="_blank" class="btn-project">Caso de Estudo →</a>
+                <a href="kartao_ynvoryx.html" target="_blank" class="btn-live">Ver ao Vivo ↗</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-final">
+    <h2>Pronto para tirar <span>sua ideia do papel?</span></h2>
+    <a href="https://wa.me/5516997821436" class="btn-primary">Falar com a Kadron</a>
+</section>
+
+<footer>
+    <span class="footer-logo"><span>KA</span>DRON</span>
+    <p>© 2026 Kadron — Pontal, SP</p>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+(function animate(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animate);})();
+document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.opacity='0';});
+    el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='1';});
+});
+</script>
+</body>
+</html>

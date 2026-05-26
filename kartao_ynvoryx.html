@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cartão YNVORYX</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Exo+2:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#afafaf;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+    min-height:100vh;
+    padding:30px;
+    flex-wrap:wrap;
+    font-family:'Exo 2', sans-serif;
+}
+
+/* BASE DOS CARTÕES */
+.card{
+    width:90mm;
+    height:50mm;
+    border-radius:10px;
+    overflow:hidden;
+    position:relative;
+    box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+
+/* ================= FRENTE ================= */
+
+.front{
+    background:linear-gradient(135deg,#030303 0%,#1e1e1e 100%);
+    border:1.5px solid #8f0a20;
+    padding:7mm 8mm;
+    color:#afafaf;
+}
+
+.front::before{
+    content:"";
+    position:absolute;
+    top:-30px;
+    right:-30px;
+    width:110px;
+    height:110px;
+    background:#8f0a20;
+    border-radius:50%;
+    opacity:.10;
+}
+
+.front::after{
+    content:"";
+    position:absolute;
+    bottom:-50px;
+    left:-50px;
+    width:130px;
+    height:130px;
+    border:1.5px solid rgba(143,10,32,.15);
+    border-radius:50%;
+}
+
+/* Nome */
+.name{
+    font-size:17px;
+    font-weight:700;
+    color:#ffffff;
+    letter-spacing:.8px;
+    margin-bottom:3px;
+    position:relative;
+    z-index:2;
+    font-family:'Exo 2', sans-serif;
+}
+
+/* Cargo / descrição */
+.role{
+    font-size:7.5px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    color:#aaaaaa;
+    margin-bottom:8px;
+    position:relative;
+    z-index:2;
+    max-width:80%;
+    line-height:1.6;
+    font-family:'Rajdhani', sans-serif;
+    font-weight:500;
+}
+
+.divider{
+    width:36px;
+    height:2px;
+    background:linear-gradient(90deg, #cc0000, #8f0a20);
+    margin-bottom:9px;
+    position:relative;
+    z-index:2;
+    border-radius:2px;
+}
+
+.info{
+    display:flex;
+    flex-direction:column;
+    gap:5px;
+    width:80%;
+    position:relative;
+    z-index:2;
+}
+
+.info-item{
+    display:flex;
+    align-items:center;
+    color:#d8d8d8;
+    font-size:9.5px;
+    line-height:1.2;
+    font-family:'Rajdhani', sans-serif;
+    font-weight:500;
+    letter-spacing:0.3px;
+}
+
+.icon{
+    width:16px;
+    min-width:16px;
+    margin-right:7px;
+    color:#cc0000;
+    font-size:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* Ícone de localização mais visível */
+.icon.loc{
+    color:#cc0000;
+    font-size:13px;
+}
+
+.info-item span:last-child{
+    word-break:break-word;
+}
+
+/* Nome da empresa no canto */
+.company-small{
+    position:absolute;
+    right:8mm;
+    bottom:6mm;
+    color:#8f0a20;
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:3px;
+    z-index:2;
+    font-family:'Rajdhani', sans-serif;
+    opacity:.8;
+}
+
+/* Detalhe canto superior direito */
+.corner-detail{
+    position:absolute;
+    top:0;
+    right:0;
+    width:0;
+    height:0;
+    border-style:solid;
+    border-width:0 20px 20px 0;
+    border-color:transparent #cc0000 transparent transparent;
+    z-index:3;
+    opacity:.6;
+}
+
+/* ================= VERSO ================= */
+
+.back{
+    background:linear-gradient(145deg,#020202 0%,#111111 50%,#1e1e1e 100%);
+    border:1.5px solid #8f0a20;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Círculo interno */
+.back::before{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    border:1px solid rgba(143,10,32,.2);
+    border-radius:50%;
+}
+
+/* Círculo externo */
+.back::after{
+    content:"";
+    position:absolute;
+    width:210px;
+    height:210px;
+    border:0.5px solid rgba(175,175,175,.04);
+    border-radius:50%;
+}
+
+/* Detalhe canto verso */
+.back .corner-detail{
+    opacity:.5;
+}
+
+.logo-area{
+    position:relative;
+    z-index:2;
+    text-align:center;
+}
+
+.ynvoryx{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+    font-weight:900;
+    letter-spacing:6px;
+    text-transform:uppercase;
+    font-family:'Exo 2', sans-serif;
+}
+
+.yn{
+    color:#cc0000;
+    text-shadow:
+        0 0 8px rgba(204,0,0,.7),
+        0 0 20px rgba(204,0,0,.3);
+    position:relative;
+}
+
+.yn::after{
+    content:"";
+    position:absolute;
+    left:-4px;
+    bottom:-7px;
+    width:calc(100% + 8px);
+    height:1.5px;
+    background:linear-gradient(90deg, #cc0000, #8f0a20);
+    box-shadow:0 0 8px rgba(204,0,0,.6);
+}
+
+.voryx{
+    color:#ffffff;
+    margin-left:3px;
+    text-shadow:
+        0 0 8px rgba(255,255,255,.08),
+        0 0 16px rgba(143,10,32,.15);
+}
+
+.tagline{
+    margin-top:14px;
+    color:#666;
+    font-size:7px;
+    letter-spacing:3.5px;
+    font-family:'Rajdhani', sans-serif;
+    font-weight:500;
+    text-transform:uppercase;
+}
+
+.line{
+    width:70px;
+    height:1.5px;
+    margin:10px auto 0;
+    border-radius:10px;
+    background:linear-gradient(
+        90deg,
+        transparent 0%,
+        #8f0a20 30%,
+        #cc0000 50%,
+        #8f0a20 70%,
+        transparent 100%
+    );
+}
+</style>
+</head>
+<body>
+
+    <!-- FRENTE -->
+    <div class="card front">
+        <div class="corner-detail"></div>
+
+        <div class="name">Kauã Biscalchini</div>
+
+        <div class="role">
+            Engenharia de Software&nbsp;&nbsp;•&nbsp;&nbsp;IA&nbsp;&nbsp;•&nbsp;&nbsp;Automação
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="info">
+            <div class="info-item">
+                <div class="icon">☎</div>
+                <span>(16) 99782-1436</span>
+            </div>
+
+            <div class="info-item">
+                <div class="icon">@</div>
+                <span>@kauab_dev</span>
+            </div>
+
+            <div class="info-item">
+                <div class="icon">✉</div>
+                <span>contato@ynvoryx.com</span>
+            </div>
+
+            <div class="info-item">
+                <div class="icon loc">⊙</div>
+                <span>Pontal — SP</span>
+            </div>
+        </div>
+
+        <div class="company-small">YNVORYX</div>
+    </div>
+
+    <!-- VERSO -->
+    <div class="card back">
+        <div class="corner-detail"></div>
+        <div class="logo-area">
+            <div class="ynvoryx">
+                <span class="yn">YN</span>
+                <span class="voryx">VORYX</span>
+            </div>
+
+            <div class="tagline">Create your vision, transform the future</div>
+            <div class="line"></div>
+        </div>
+    </div>
+
+</body>
+</html>

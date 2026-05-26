@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kadron Finance — Caso de Estudo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;700;900&family=Barlow:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #cc0000;
+            --red-dim: #8f0a20;
+            --white: #f0eeea;
+            --gray: #888580;
+            --gray-light: #b0ada8;
+            --dark: #0a0908;
+            --dark2: #111010;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--dark); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
+
+        /* CURSOR */
+        .cursor { position: fixed; width: 10px; height: 10px; background: var(--red); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .2s, height .2s; }
+        .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid rgba(204,0,0,.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: opacity .2s; }
+
+        /* NOISE EFFECT */
+        body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity:.03; pointer-events:none; z-index:0; }
+
+        /* NAVIGATION */
+        nav { position: fixed; top:0; left:0; right:0; z-index:100; padding: 1.2rem 4rem; display:flex; justify-content:space-between; align-items:center; border-bottom: 0.5px solid rgba(255,255,255,.05); background: rgba(10,9,8,.9); backdrop-filter: blur(12px); }
+        .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.3rem; letter-spacing:4px; text-decoration:none; color:var(--white); }
+        .nav-logo span { color:var(--red); }
+        .nav-links { display:flex; gap:2rem; list-style:none; }
+        .nav-links a { font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gray); text-decoration:none; transition:color .2s; }
+        .nav-links a:hover { color:var(--white); }
+        .nav-cta { font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--red); text-decoration:none; border: 0.5px solid var(--red-dim); padding:.5rem 1.2rem; transition:background .2s, color .2s; }
+        .nav-cta:hover { background:var(--red); color:#fff; }
+
+        /* CONTENT HEADER */
+        .content-header { padding: 8rem 4rem 3rem; position: relative; border-bottom: 0.5px solid rgba(255,255,255,.05); }
+        .back-link { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gray); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: color .2s; }
+        .back-link:hover { color: var(--white); }
+        .content-header h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2.5rem, 6vw, 4.5rem); text-transform: uppercase; line-height: 1; letter-spacing: -1px; margin-bottom: 1.5rem; }
+        .content-header h1 span { color: var(--red); }
+        .project-meta { display: flex; gap: 3rem; flex-wrap: wrap; margin-top: 2rem; }
+        .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+        .meta-label { font-size: 0.65rem; text-transform: uppercase; color: var(--gray); letter-spacing: 2px; }
+        .meta-val { font-size: 0.9rem; color: var(--white); font-weight: 400; }
+
+        /* CASE STUDY BODY */
+        .case-container { padding: 4rem 4rem 8rem; display: grid; grid-template-columns: 2.2fr 1fr; gap: 5rem; }
+        .case-text { line-height: 1.8; color: var(--gray-light); font-size: 0.95rem; }
+        .case-text h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2rem; text-transform: uppercase; color: var(--white); margin: 2.5rem 0 1rem; border-bottom: 1px solid rgba(255,255,255,.05); padding-bottom: 0.5rem; }
+        .case-text h2:first-of-type { margin-top: 0; }
+        .case-text p { margin-bottom: 1.5rem; }
+        .case-text ul { margin: 1rem 0 1.5rem 1.5rem; list-style-type: square; }
+        .case-text li { margin-bottom: 0.5rem; }
+        .code-block { background: var(--dark2); border: 0.5px solid rgba(255,255,255,.07); padding: 1.5rem; font-family: monospace; font-size: 0.85rem; color: var(--white); overflow-x: auto; margin: 1.5rem 0; border-radius: 4px; line-height: 1.5; }
+
+        /* SIDEBAR */
+        .sidebar { display: flex; flex-direction: column; gap: 2.5rem; }
+        .widget { background: var(--dark2); border: 0.5px solid rgba(255,255,255,.05); padding: 2rem; }
+        .widget-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; margin-bottom: 1rem; color: var(--white); border-bottom: 1px solid var(--red-dim); padding-bottom: 0.3rem; }
+        .stack-list { display: flex; flex-direction: column; gap: 0.8rem; list-style: none; }
+        .stack-list li { display: flex; justify-content: space-between; font-size: 0.85rem; }
+        .stack-name { color: var(--gray-light); }
+        .stack-version { color: var(--red); font-weight: 700; }
+
+        /* BTN DEV */
+        .btn-dev { margin-top: 1.5rem; background: var(--red); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; text-decoration: none; padding: 0.8rem 1.5rem; text-align: center; display: inline-block; transition: background 0.2s, transform 0.1s; }
+        .btn-dev:hover { background: #e00; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<nav>
+    <a href="index.html#home" class="nav-logo"><span>KA</span>DRON</a>
+    <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#sobre">Sobre</a></li>
+        <li><a href="projetos.html">Projetos</a></li>
+        <li><a href="index.html#contato">Contato</a></li>
+    </ul>
+    <a href="https://wa.me/5516997821436" class="nav-cta">Orçamento</a>
+</nav>
+
+<header class="content-header">
+    <a href="projetos.html" class="back-link">← Voltar aos Projetos</a>
+    <h1>Kadron <span>Finance</span></h1>
+    <div class="project-meta">
+        <div class="meta-item">
+            <span class="meta-label">Categoria</span>
+            <span class="meta-val">SaaS Premium de Finanças</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Banco de Dados</span>
+            <span class="meta-val">Supabase SQL</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Data</span>
+            <span class="meta-val">2026</span>
+        </div>
+    </div>
+</header>
+
+<main class="case-container">
+    <article class="case-text">
+        <h2>O que é o Kadron Finance?</h2>
+        <p>O <strong>Kadron Finance</strong> é um sistema SaaS de controle financeiro projetado com a estética premium característica do ecossistema Kadron (tons escuros e detalhes em vermelho vibrante), inspirado nas interfaces da Stripe e Linear. O objetivo é fornecer uma visão limpa, analítica e de alta fidelidade das movimentações financeiras pessoais e corporativas.</p>
+        <p>O sistema foi construído sobre o Next.js 15, garantindo tempos de resposta instantâneos via Server Components e otimizações automáticas de carregamento.</p>
+
+        <h2>Recursos em Destaque</h2>
+        <ul>
+            <li><strong>Context Switcher Inteligente:</strong> Alternância instantânea no topo do painel entre o contexto Pessoal e o Corporativo, carregando dados diferentes sem recarregar a página.</li>
+            <li><strong>Gráficos de Alta Fidelidade:</strong> Visualização interativa de fluxo de caixa, despesas por categoria e evolução patrimonial utilizando Recharts.</li>
+            <li><strong>Geração de PDF integrada:</strong> Criação sob demanda de relatórios mensais formatados e profissionais para download com um clique utilizando React-PDF.</li>
+            <li><strong>Acompanhamento de Metas:</strong> Barras de progresso dinâmicas que comparam o faturamento e os investimentos atuais com metas pré-definidas.</li>
+        </ul>
+
+        <h2>Como Executar Localmente</h2>
+        <p>Você pode rodar a aplicação em seu ambiente local com as seguintes instruções:</p>
+        <p><strong>1. Instalar as dependências:</strong></p>
+        <div class="code-block">
+cd kadron-finance
+npm install
+        </div>
+        <p><strong>2. Configuração de Variáveis do Supabase:</strong></p>
+        <p>Crie um arquivo `.env.local` na pasta raiz e adicione suas chaves:</p>
+        <div class="code-block">
+NEXT_PUBLIC_SUPABASE_URL=sua_url_do_supabase
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sua_chave_anonima
+        </div>
+        <p><strong>3. Executar o Servidor de Desenvolvimento:</strong></p>
+        <div class="code-block">npm run dev</div>
+        <p>A aplicação estará disponível em <a href="http://localhost:3000" target="_blank" style="color: var(--red); text-decoration: underline;">http://localhost:3000</a>.</p>
+        <div style="margin-top: 3rem;">
+            <a href="https://planilha-financeira-gamma.vercel.app/" target="_blank" class="btn-dev">Ver Projeto em Tempo Real ↗</a>
+        </div>
+    </article>
+
+    <aside class="sidebar">
+        <div class="widget">
+            <h3 class="widget-title">Tecnologias</h3>
+            <ul class="stack-list">
+                <li><span class="stack-name">Framework</span><span class="stack-version">Next.js 15</span></li>
+                <li><span class="stack-name">Estilização</span><span class="stack-version">Tailwind v4</span></li>
+                <li><span class="stack-name">Componentes UI</span><span class="stack-version">Shadcn UI</span></li>
+                <li><span class="stack-name">Banco / Auth</span><span class="stack-version">Supabase</span></li>
+                <li><span class="stack-name">Biblioteca Gráficos</span><span class="stack-version">Recharts</span></li>
+                <li><span class="stack-name">Gerador PDF</span><span class="stack-version">React-PDF</span></li>
+            </ul>
+        </div>
+    </aside>
+</main>
+
+<footer>
+    <span class="footer-logo"><span>KA</span>DRON</span>
+    <p>© 2026 Kadron — Pontal, SP</p>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+(function animate(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animate);})();
+document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.opacity='0';});
+    el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='1';});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garagem do Frango — Caso de Estudo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;700;900&family=Barlow:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #cc0000;
+            --red-dim: #8f0a20;
+            --white: #f0eeea;
+            --gray: #888580;
+            --gray-light: #b0ada8;
+            --dark: #0a0908;
+            --dark2: #111010;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--dark); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
+
+        /* CURSOR */
+        .cursor { position: fixed; width: 10px; height: 10px; background: var(--red); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .2s, height .2s; }
+        .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid rgba(204,0,0,.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: opacity .2s; }
+
+        /* NOISE EFFECT */
+        body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity:.03; pointer-events:none; z-index:0; }
+
+        /* NAVIGATION */
+        nav { position: fixed; top:0; left:0; right:0; z-index:100; padding: 1.2rem 4rem; display:flex; justify-content:space-between; align-items:center; border-bottom: 0.5px solid rgba(255,255,255,.05); background: rgba(10,9,8,.9); backdrop-filter: blur(12px); }
+        .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.3rem; letter-spacing:4px; text-decoration:none; color:var(--white); }
+        .nav-logo span { color:var(--red); }
+        .nav-links { display:flex; gap:2rem; list-style:none; }
+        .nav-links a { font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gray); text-decoration:none; transition:color .2s; }
+        .nav-links a:hover { color:var(--white); }
+        .nav-cta { font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--red); text-decoration:none; border: 0.5px solid var(--red-dim); padding:.5rem 1.2rem; transition:background .2s, color .2s; }
+        .nav-cta:hover { background:var(--red); color:#fff; }
+
+        /* CONTENT HEADER */
+        .content-header { padding: 8rem 4rem 3rem; position: relative; border-bottom: 0.5px solid rgba(255,255,255,.05); }
+        .back-link { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gray); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; margin-bottom: 2rem; transition: color .2s; }
+        .back-link:hover { color: var(--white); }
+        .content-header h1 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: clamp(2.5rem, 6vw, 4.5rem); text-transform: uppercase; line-height: 1; letter-spacing: -1px; margin-bottom: 1.5rem; }
+        .content-header h1 span { color: var(--red); }
+        .project-meta { display: flex; gap: 3rem; flex-wrap: wrap; margin-top: 2rem; }
+        .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
+        .meta-label { font-size: 0.65rem; text-transform: uppercase; color: var(--gray); letter-spacing: 2px; }
+        .meta-val { font-size: 0.9rem; color: var(--white); font-weight: 400; }
+
+        /* CASE STUDY BODY */
+        .case-container { padding: 4rem 4rem 8rem; display: grid; grid-template-columns: 2.2fr 1fr; gap: 5rem; }
+        .case-text { line-height: 1.8; color: var(--gray-light); font-size: 0.95rem; }
+        .case-text h2 { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2rem; text-transform: uppercase; color: var(--white); margin: 2.5rem 0 1rem; border-bottom: 1px solid rgba(255,255,255,.05); padding-bottom: 0.5rem; }
+        .case-text h2:first-of-type { margin-top: 0; }
+        .case-text p { margin-bottom: 1.5rem; }
+        .case-text ul { margin: 1rem 0 1.5rem 1.5rem; list-style-type: square; }
+        .case-text li { margin-bottom: 0.5rem; }
+        .code-block { background: var(--dark2); border: 0.5px solid rgba(255,255,255,.07); padding: 1.5rem; font-family: monospace; font-size: 0.85rem; color: var(--white); overflow-x: auto; margin: 1.5rem 0; border-radius: 4px; line-height: 1.5; }
+
+        /* SIDEBAR */
+        .sidebar { display: flex; flex-direction: column; gap: 2.5rem; }
+        .widget { background: var(--dark2); border: 0.5px solid rgba(255,255,255,.05); padding: 2rem; }
+        .widget-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.2rem; text-transform: uppercase; margin-bottom: 1rem; color: var(--white); border-bottom: 1px solid var(--red-dim); padding-bottom: 0.3rem; }
+        .stack-list { display: flex; flex-direction: column; gap: 0.8rem; list-style: none; }
+        .stack-list li { display: flex; justify-content: space-between; font-size: 0.85rem; }
+        .stack-name { color: var(--gray-light); }
+        .stack-version { color: var(--red); font-weight: 700; }
+
+        /* BTN DEV */
+        .btn-dev { margin-top: 1.5rem; background: var(--red); color: #fff; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: .85rem; letter-spacing: .15em; text-transform: uppercase; text-decoration: none; padding: 0.8rem 1.5rem; text-align: center; display: inline-block; transition: background 0.2s, transform 0.1s; }
+        .btn-dev:hover { background: #e00; transform: translateY(-2px); }
+
+        @media(max-width:900px){
+            nav{padding:1rem 1.5rem;}
+            .nav-links{display:none;}
+            .content-header{padding:6rem 1.5rem 2rem;}
+            .case-container{grid-template-columns:1fr; padding: 2rem 1.5rem; gap: 3rem;}
+        }
+    </style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<nav>
+    <a href="index.html#home" class="nav-logo"><span>KA</span>DRON</a>
+    <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#sobre">Sobre</a></li>
+        <li><a href="projetos.html">Projetos</a></li>
+        <li><a href="index.html#contato">Contato</a></li>
+    </ul>
+    <a href="https://wa.me/5516997821436" class="nav-cta">Orçamento</a>
+</nav>
+
+<header class="content-header">
+    <a href="projetos.html" class="back-link">← Voltar aos Projetos</a>
+    <h1>Garagem do <span>Frango</span></h1>
+    <div class="project-meta">
+        <div class="meta-item">
+            <span class="meta-label">Categoria</span>
+            <span class="meta-val">Full-Stack SaaS / Delivery</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Cliente</span>
+            <span class="meta-val">Garagem do Frango</span>
+        </div>
+        <div class="meta-item">
+            <span class="meta-label">Data</span>
+            <span class="meta-val">2026</span>
+        </div>
+    </div>
+</header>
+
+<main class="case-container">
+    <article class="case-text">
+        <h2>Visão Geral do Sistema</h2>
+        <p>A <strong>Garagem do Frango</strong> é uma solução completa sob medida desenvolvida para automatizar e escalonar o gerenciamento de pedidos de um restaurante especializado em frango assado e acompanhamentos. O sistema substitui o controle manual por um fluxo ágil que conecta o cliente diretamente ao painel da cozinha.</p>
+        <p>Dividido em duas grandes aplicações (frontend interativo em React e backend robusto em Node.js), o sistema conta com transmissão em tempo real de novos pedidos, otimizando o tempo de preparo e a logística de entrega.</p>
+
+        <h2>Principais Funcionalidades</h2>
+        <ul>
+            <li><strong>Cardápio Online de Alta Velocidade:</strong> Interface responsiva para o cliente final, com imagens otimizadas, seleção de variações e checkout simplificado.</li>
+            <li><strong>Painel Admin em Tempo Real:</strong> Notificações instantâneas na cozinha via WebSockets (Socket.IO) sempre que um novo pedido é efetuado.</li>
+            <li><strong>Gestão de Status de Pedido:</strong> Controle do fluxo produtivo (Pendente, Em Preparo, Pronto para Entrega, Finalizado).</li>
+            <li><strong>Segurança & Rota Secreta:</strong> Área administrativa protegida por criptografia JWT, com controle dinâmico da rota de login para evitar acessos mal-intencionados.</li>
+        </ul>
+
+        <h2>Arquitetura Técnica</h2>
+        <p>A arquitetura foi pensada para manter alta disponibilidade e baixo consumo de recursos, ideal para hospedagem em VPS ou servidores compartilhados otimizados:</p>
+        <div class="code-block">
+garagem-do-frango/
+├── backend/          # Node.js + Express + MySQL + Socket.IO (Porta 3000)
+│   ├── database.sql  # Estrutura e migração do Banco de Dados
+│   └── server.js     # Servidor central de APIs e Sockets
+└── frontend/         # React + Vite + Tailwind CSS (Porta 5173 / Dist)
+        </div>
+
+        <h2>Como Executar Localmente</h2>
+        <p>Para rodar o projeto em ambiente de desenvolvimento, siga os passos abaixo:</p>
+        <p><strong>1. Inicializar o Banco de Dados MySQL:</strong></p>
+        <div class="code-block">mysql -u seu_usuario -p < backend/database.sql</div>
+        <p><strong>2. Iniciar o Backend:</strong></p>
+        <div class="code-block">
+cd backend
+cp .env.example .env   # Configure sua conexão MySQL e JWT_SECRET no arquivo .env
+npm install
+npm run dev
+        </div>
+        <p><strong>3. Iniciar o Frontend:</strong></p>
+        <div class="code-block">
+cd ../frontend
+cp .env.example .env   # Defina VITE_API_URL=http://localhost:3000/api
+npm install
+npm run dev
+        </div>
+        <div style="margin-top: 3rem;">
+            <a href="https://garagem-do-frango-v3.vercel.app/inicio" target="_blank" class="btn-dev">Ver Projeto em Tempo Real ↗</a>
+        </div>
+    </article>
+
+    <aside class="sidebar">
+        <div class="widget">
+            <h3 class="widget-title">Tecnologias</h3>
+            <ul class="stack-list">
+                <li><span class="stack-name">Frontend</span><span class="stack-version">React 18</span></li>
+                <li><span class="stack-name">Bundler</span><span class="stack-version">Vite</span></li>
+                <li><span class="stack-name">Estilização</span><span class="stack-version">Tailwind CSS</span></li>
+                <li><span class="stack-name">Servidor Web</span><span class="stack-version">Node.js / Express</span></li>
+                <li><span class="stack-name">Banco de Dados</span><span class="stack-version">MySQL</span></li>
+                <li><span class="stack-name">Comunicação</span><span class="stack-version">Socket.IO (WS)</span></li>
+            </ul>
+        </div>
+    </aside>
+</main>
+
+<footer>
+    <span class="footer-logo"><span>KA</span>DRON</span>
+    <p>© 2026 Kadron — Pontal, SP</p>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+(function animate(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animate);})();
+document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.opacity='0';});
+    el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='1';});
+});
+</script>
+</body>
+</html>
