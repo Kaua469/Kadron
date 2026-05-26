@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <meta name="google-site-verification" content="F4phKW6ZwUkSXIxyZ8Hg4_ztr5f8ej8RJ0YJsqLrers" />
 
     <title>KADRON — Sites com IA e Soluções Digitais em Pontal</title>
-    <meta name="description" content="KADRON: Criação de sites modernos com IA, Landing Pages e Dashboards inteligentes por Kauã Biscalchini. Transforme seu negócio no futuro digital.">
-    <meta name="keywords" content="KADRON, Sites com IA, Kauã Biscalchini, Web Design Pontal, Automação, Dashboards, Landing Pages">
+    <meta name="description"
+        content="KADRON: Criação de sites modernos com IA, Landing Pages e Dashboards inteligentes por Kauã Biscalchini. Transforme seu negócio no futuro digital.">
+    <meta name="keywords"
+        content="KADRON, Sites com IA, Kauã Biscalchini, Web Design Pontal, Automação, Dashboards, Landing Pages">
     <meta name="author" content="Kauã Biscalchini">
 
     <meta property="og:title" content="KADRON — Seu negócio no futuro digital">
-    <meta property="og:description" content="Sites de alta performance com Inteligência Artificial. Conheça as soluções da Kadron.">
+    <meta property="og:description"
+        content="Sites de alta performance com Inteligência Artificial. Conheça as soluções da Kadron.">
     <meta property="og:image" content="https://portifolio-ten-taupe-57.vercel.app/kaua.png.png">
     <meta property="og:url" content="https://portifolio-ten-taupe-57.vercel.app/">
     <meta property="og:type" content="website">
 
-    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;700;900&family=Barlow:wght@300;400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;700;900&family=Barlow:wght@300;400&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --red: #cc0000;
@@ -28,237 +34,751 @@
             --dark: #0a0908;
             --dark2: #111010;
         }
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { background: var(--dark); color: var(--white); font-family: 'Barlow', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--dark);
+            color: var(--white);
+            font-family: 'Barlow', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+            cursor: none;
+        }
 
         /* CURSOR */
-        .cursor { position: fixed; width: 10px; height: 10px; background: var(--red); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .2s, height .2s; }
-        .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid rgba(204,0,0,.4); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: opacity .2s; }
+        .cursor {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--red);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width .2s, height .2s;
+        }
+
+        .cursor-ring {
+            position: fixed;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(204, 0, 0, .4);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: opacity .2s;
+        }
 
         /* NOISE EFFECT */
-        body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity:.03; pointer-events:none; z-index:0; }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+            opacity: .03;
+            pointer-events: none;
+            z-index: 0;
+        }
 
         /* NAVIGATION */
-        nav { position: fixed; top:0; left:0; right:0; z-index:100; padding: 1.2rem 4rem; display:flex; justify-content:space-between; align-items:center; border-bottom: 0.5px solid rgba(255,255,255,.05); background: rgba(10,9,8,.9); backdrop-filter: blur(12px); }
-        .nav-logo { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.3rem; letter-spacing:4px; text-decoration:none; color:var(--white); }
-        .nav-logo span { color:var(--red); }
-        .nav-links { display:flex; gap:2rem; list-style:none; }
-        .nav-links a { font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gray); text-decoration:none; transition:color .2s; }
-        .nav-links a:hover { color:var(--white); }
-        .nav-cta { font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--red); text-decoration:none; border: 0.5px solid var(--red-dim); padding:.5rem 1.2rem; transition:background .2s, color .2s; }
-        .nav-cta:hover { background:var(--red); color:#fff; }
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 0.5px solid rgba(255, 255, 255, .05);
+            background: rgba(10, 9, 8, .9);
+            backdrop-filter: blur(12px);
+        }
+
+        .nav-logo {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-size: 1.3rem;
+            letter-spacing: 4px;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .nav-logo span {
+            color: var(--red);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: .72rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--gray);
+            text-decoration: none;
+            transition: color .2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        .nav-cta {
+            font-size: .72rem;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--red);
+            text-decoration: none;
+            border: 0.5px solid var(--red-dim);
+            padding: .5rem 1.2rem;
+            transition: background .2s, color .2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--red);
+            color: #fff;
+        }
 
         /* HERO SECTION */
-        .hero { min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:0 4rem 5rem; position:relative; overflow:hidden; }
-        .hero-ghost { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(100px,20vw,260px); letter-spacing:-6px; color:transparent; -webkit-text-stroke:.5px rgba(255,255,255,.04); white-space:nowrap; pointer-events:none; user-select:none; }
-        .hero-line { width:36px; height:1px; background:var(--red); margin-bottom:1.5rem; }
-        .hero-tag { font-size:.68rem; letter-spacing:.3em; text-transform:uppercase; color:var(--red); margin-bottom:1.2rem; }
-        .hero h1 { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(4rem,10vw,9rem); line-height:.9; letter-spacing:-2px; text-transform:uppercase; margin-bottom:1.5rem; position:relative; z-index:1; }
-        .hero h1 em { font-style:normal; color:var(--red); display:block; }
-        .hero-sub { font-size:.95rem; color:var(--gray); max-width:380px; line-height:1.8; margin-bottom:2.5rem; }
-        .hero-actions { display:flex; gap:1.5rem; align-items:center; }
-        .btn-primary { background:var(--red); color:#fff; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:.82rem; letter-spacing:.2em; text-transform:uppercase; text-decoration:none; padding:1rem 2.5rem; display:inline-block; border:none; cursor:pointer; transition:background .2s, transform .15s; text-align: center; }
-        .btn-primary:hover { background:#e00; transform:translateY(-2px); }
-        .btn-ghost { font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gray); text-decoration:none; cursor:pointer; transition:color .2s; }
-        .btn-ghost:hover { color:var(--white); }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 4rem 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-ghost {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-size: clamp(100px, 20vw, 260px);
+            letter-spacing: -6px;
+            color: transparent;
+            -webkit-text-stroke: .5px rgba(255, 255, 255, .04);
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .hero-line {
+            width: 36px;
+            height: 1px;
+            background: var(--red);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-tag {
+            font-size: .68rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 1.2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-size: clamp(4rem, 10vw, 9rem);
+            line-height: .9;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--red);
+            display: block;
+        }
+
+        .hero-sub {
+            font-size: .95rem;
+            color: var(--gray);
+            max-width: 380px;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: #fff;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: .82rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 1rem 2.5rem;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            transition: background .2s, transform .15s;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            background: #e00;
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            font-size: .72rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--gray);
+            text-decoration: none;
+            cursor: pointer;
+            transition: color .2s;
+        }
+
+        .btn-ghost:hover {
+            color: var(--white);
+        }
 
         /* MARQUEE */
-        .marquee-wrap { border-top:.5px solid rgba(255,255,255,.05); border-bottom:.5px solid rgba(255,255,255,.05); padding:.9rem 0; overflow:hidden; background:var(--dark2); }
-        .marquee-track { display:flex; gap:2.5rem; animation:marquee 18s linear infinite; width:max-content; }
-        @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-        .marquee-item { font-family:'Barlow Condensed',sans-serif; font-size:.7rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gray); white-space:nowrap; display:flex; align-items:center; gap:1.5rem; }
-        .marquee-item::after { content:'✦'; color:var(--red); font-size:.5rem; }
+        .marquee-wrap {
+            border-top: .5px solid rgba(255, 255, 255, .05);
+            border-bottom: .5px solid rgba(255, 255, 255, .05);
+            padding: .9rem 0;
+            overflow: hidden;
+            background: var(--dark2);
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 2.5rem;
+            animation: marquee 18s linear infinite;
+            width: max-content;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0)
+            }
+
+            to {
+                transform: translateX(-50%)
+            }
+        }
+
+        .marquee-item {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .7rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--gray);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .marquee-item::after {
+            content: '✦';
+            color: var(--red);
+            font-size: .5rem;
+        }
 
         /* SECTIONS COMMON STYLE */
-        .sec-label { font-size:.68rem; letter-spacing:.3em; text-transform:uppercase; color:var(--red); margin-bottom:.8rem; display:flex; align-items:center; gap:10px; }
-        .sec-label::before { content:''; width:20px; height:.5px; background:var(--red); display:inline-block; }
-        .sec-h2 { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(2rem,4vw,3.2rem); text-transform:uppercase; line-height:1; margin-bottom:1.5rem; }
-        .sec-h2 span { color:var(--red); }
+        .sec-label {
+            font-size: .68rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: .8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sec-label::before {
+            content: '';
+            width: 20px;
+            height: .5px;
+            background: var(--red);
+            display: inline-block;
+        }
+
+        .sec-h2 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .sec-h2 span {
+            color: var(--red);
+        }
 
         /* SOBRE (ABOUT) */
-        .sobre { padding:7rem 4rem; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; border-bottom:.5px solid rgba(255,255,255,.05); }
-        .sobre-text { font-size:.9rem; color:var(--gray-light); line-height:1.8; margin-bottom:1rem; }
-        .tag { font-size:.68rem; letter-spacing:.15em; text-transform:uppercase; color:var(--red); border:.5px solid var(--red-dim); padding:4px 10px; background:#0d0504; display:inline-block; margin: 2px; }
+        .sobre {
+            padding: 7rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            border-bottom: .5px solid rgba(255, 255, 255, .05);
+        }
+
+        .sobre-text {
+            font-size: .9rem;
+            color: var(--gray-light);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            font-size: .68rem;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: var(--red);
+            border: .5px solid var(--red-dim);
+            padding: 4px 10px;
+            background: #0d0504;
+            display: inline-block;
+            margin: 2px;
+        }
 
         /* FOTO (PORTRAIT) */
-        .foto-frame { width:100%; aspect-ratio:3/4; background:var(--dark2); border:.5px solid rgba(255,255,255,.07); position:relative; overflow:hidden; }
-        .foto-frame img { width:100%; height:100%; object-fit:cover; display:block; }
-        .foto-corner { position:absolute; width:14px; height:14px; border-color:var(--red); border-style:solid; border-width:0; z-index: 2; }
-        .foto-corner.tl { top:10px; left:10px; border-top-width:1px; border-left-width:1px; }
-        .foto-corner.tr { top:10px; right:10px; border-top-width:1px; border-right-width:1px; }
-        .foto-corner.bl { bottom:10px; left:10px; border-bottom-width:1px; border-left-width:1px; }
-        .foto-corner.br { bottom:10px; right:10px; border-bottom-width:1px; border-right-width:1px; }
+        .foto-frame {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: var(--dark2);
+            border: .5px solid rgba(255, 255, 255, .07);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .foto-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .foto-corner {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-color: var(--red);
+            border-style: solid;
+            border-width: 0;
+            z-index: 2;
+        }
+
+        .foto-corner.tl {
+            top: 10px;
+            left: 10px;
+            border-top-width: 1px;
+            border-left-width: 1px;
+        }
+
+        .foto-corner.tr {
+            top: 10px;
+            right: 10px;
+            border-top-width: 1px;
+            border-right-width: 1px;
+        }
+
+        .foto-corner.bl {
+            bottom: 10px;
+            left: 10px;
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+        }
+
+        .foto-corner.br {
+            bottom: 10px;
+            right: 10px;
+            border-bottom-width: 1px;
+            border-right-width: 1px;
+        }
 
         /* PROJETOS (PROJECTS) */
-        .projetos { padding:7rem 4rem; border-bottom:.5px solid rgba(255,255,255,.05); }
-        .proj-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(255,255,255,.05); margin-top:2rem; }
-        .proj-card { background:var(--dark2); position:relative; overflow:hidden; min-height: 300px; padding: 2rem; display: flex; flex-direction: column; justify-content: flex-end; transition: background .3s; border: 0.5px solid rgba(255,255,255,.02); }
-        .proj-card:hover { background: #161515; }
-        .proj-card:hover .proj-num { color: var(--red); }
-        .proj-num { font-family: 'Barlow Condensed', sans-serif; font-size: 4rem; font-weight: 900; color: rgba(255,255,255,.03); position: absolute; top: 1rem; right: 1rem; transition: color .3s; }
-        .proj-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.5rem; text-transform: uppercase; margin-bottom: 0.5rem; color: var(--white); }
-        .proj-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+        .projetos {
+            padding: 7rem 4rem;
+            border-bottom: .5px solid rgba(255, 255, 255, .05);
+        }
+
+        .proj-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(255, 255, 255, .05);
+            margin-top: 2rem;
+        }
+
+        .proj-card {
+            background: var(--dark2);
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: background .3s;
+            border: 0.5px solid rgba(255, 255, 255, .02);
+        }
+
+        .proj-card:hover {
+            background: #161515;
+        }
+
+        .proj-card:hover .proj-num {
+            color: var(--red);
+        }
+
+        .proj-num {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, .03);
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            transition: color .3s;
+        }
+
+        .proj-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+        }
+
+        .proj-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
 
         /* CONTATO (CONTACT) */
-        .contato { padding:7rem 4rem; border-bottom:.5px solid rgba(255,255,255,.05); }
-        .contato-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; margin-top:2rem; }
-        .contato-info { display:flex; flex-direction:column; gap:1.5rem; }
-        .contato-item { display:flex; align-items:flex-start; gap:1rem; }
-        .contato-icon { width:32px; height:32px; background:#1a0a0a; border:.5px solid rgba(204,0,0,.2); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-        .contato-icon svg { width:14px; height:14px; stroke:var(--red); fill:none; stroke-width:1.5; }
-        .contato-label { font-size:.65rem; color:#555; text-transform:uppercase; }
-        .contato-val { font-size:.9rem; color:var(--white); }
+        .contato {
+            padding: 7rem 4rem;
+            border-bottom: .5px solid rgba(255, 255, 255, .05);
+        }
+
+        .contato-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 2rem;
+        }
+
+        .contato-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contato-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .contato-icon {
+            width: 32px;
+            height: 32px;
+            background: #1a0a0a;
+            border: .5px solid rgba(204, 0, 0, .2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contato-icon svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--red);
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .contato-label {
+            font-size: .65rem;
+            color: #555;
+            text-transform: uppercase;
+        }
+
+        .contato-val {
+            font-size: .9rem;
+            color: var(--white);
+        }
 
         /* FORM STYLE */
-        .contato-form { display:flex; flex-direction:column; gap:.8rem; }
-        .form-input, .form-textarea { background:var(--dark2); border:.5px solid rgba(255,255,255,.07); color:var(--white); font-family:'Barlow',sans-serif; font-size:.85rem; padding:.75rem 1rem; width:100%; outline:none; transition:border-color .2s; }
-        .form-input:focus, .form-textarea:focus { border-color:rgba(204,0,0,0.4); }
-        .form-textarea { height:120px; resize:none; }
+        .contato-form {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+        }
+
+        .form-input,
+        .form-textarea {
+            background: var(--dark2);
+            border: .5px solid rgba(255, 255, 255, .07);
+            color: var(--white);
+            font-family: 'Barlow', sans-serif;
+            font-size: .85rem;
+            padding: .75rem 1rem;
+            width: 100%;
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            border-color: rgba(204, 0, 0, 0.4);
+        }
+
+        .form-textarea {
+            height: 120px;
+            resize: none;
+        }
 
         /* FOOTER & CTA */
-        .cta-final { padding:9rem 4rem; text-align:center; border-top:.5px solid rgba(255,255,255,.05); }
-        .cta-final h2 { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(2.5rem,7vw,6rem); text-transform:uppercase; line-height:.95; margin-bottom:1.5rem; }
-        .cta-final h2 span { color:var(--red); display:block; }
-        footer { padding:1.8rem 4rem; border-top:.5px solid rgba(255,255,255,.05); display:flex; justify-content:space-between; align-items:center; }
+        .cta-final {
+            padding: 9rem 4rem;
+            text-align: center;
+            border-top: .5px solid rgba(255, 255, 255, .05);
+        }
 
-        @media(max-width:900px){
-            nav{padding:1rem 1.5rem;}
-            .nav-links{display:none;}
-            .hero{padding:0 1.5rem 4rem;}
-            .sobre,.contato-grid,.proj-grid{grid-template-columns:1fr;padding:4rem 1.5rem;}
-            .projetos{padding: 4rem 1.5rem;}
+        .cta-final h2 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-size: clamp(2.5rem, 7vw, 6rem);
+            text-transform: uppercase;
+            line-height: .95;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-final h2 span {
+            color: var(--red);
+            display: block;
+        }
+
+        footer {
+            padding: 1.8rem 4rem;
+            border-top: .5px solid rgba(255, 255, 255, .05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media(max-width:900px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 0 1.5rem 4rem;
+            }
+
+            .sobre,
+            .contato-grid,
+            .proj-grid {
+                grid-template-columns: 1fr;
+                padding: 4rem 1.5rem;
+            }
+
+            .projetos {
+                padding: 4rem 1.5rem;
+            }
         }
     </style>
 </head>
+
 <body id="home">
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursor-ring"></div>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursor-ring"></div>
 
-<nav>
-    <a href="#home" class="nav-logo"><span>KA</span>DRON</a>
-    <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="projetos.html">Projetos</a></li>
-        <li><a href="#contato">Contato</a></li>
-    </ul>
-    <a href="https://wa.me/5516997978466" class="nav-cta">Orçamento</a>
-</nav>
+    <nav>
+        <a href="#home" class="nav-logo"><span>KA</span>DRON</a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="projetos.html">Projetos</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+        <a href="https://wa.me/5516997978466" class="nav-cta">Orçamento</a>
+    </nav>
 
-<section class="hero">
-    <div class="hero-ghost">KADRON</div>
-    <div class="hero-line"></div>
-    <p class="hero-tag">// Pontal, SP — Sites com IA</p>
-    <h1>Seu negócio<em>no futuro</em>digital.</h1>
-    <p class="hero-sub">Create your vision, transformer the future!</p>
-    <div class="hero-actions">
-        <a href="#contato" class="btn-primary">Quero meu site</a>
-        <a href="#projetos" class="btn-ghost">Ver projetos ↓</a>
-    </div>
-</section>
+    <section class="hero">
+        <div class="hero-ghost">KADRON</div>
+        <div class="hero-line"></div>
+        <p class="hero-tag">// Pontal, SP — Sites com IA</p>
+        <h1>Seu negócio<em>no futuro</em>digital.</h1>
+        <p class="hero-sub">Create your vision, transformer the future!</p>
+        <div class="hero-actions">
+            <a href="#contato" class="btn-primary">Quero meu site</a>
+            <a href="#projetos" class="btn-ghost">Ver projetos ↓</a>
+        </div>
+    </section>
 
-<div class="marquee-wrap">
-    <div class="marquee-track">
-        <span class="marquee-item">Sites com IA</span>
-        <span class="marquee-item">Landing Pages</span>
-        <span class="marquee-item">KADRON</span>
-        <span class="marquee-item">Sites com IA</span>
-        <span class="marquee-item">Landing Pages</span>
-    </div>
-</div>
-
-<section class="sobre" id="sobre">
-    <div>
-        <p class="sec-label">Sobre</p>
-        <h2 class="sec-h2">Quem está <span>por trás.</span></h2>
-        <p class="sobre-text">Sou Kauã Biscalchini desenvolvedor focado em criar sites e sistemas que ajudam empresas a vender mais e se organizar melhor. Trabalho com soluções modernas, dashboards inteligentes e foco total em resultado. Cada projeto é pensado para melhorar processos, aumentar a eficiência e gerar crescimento real para o negócio.</p>
-        <div class="sobre-tags">
-            <span class="tag">Inteligência Artificial</span>
-            <span class="tag">Python</span>
-            <span class="tag">Web Design</span>
+    <div class="marquee-wrap">
+        <div class="marquee-track">
+            <span class="marquee-item">Sites com IA</span>
+            <span class="marquee-item">Landing Pages</span>
+            <span class="marquee-item">KADRON</span>
+            <span class="marquee-item">Sites com IA</span>
+            <span class="marquee-item">Landing Pages</span>
         </div>
     </div>
-    <div>
-        <div class="foto-frame">
-            <div class="foto-corner tl"></div><div class="foto-corner tr"></div>
-            <div class="foto-corner bl"></div><div class="foto-corner br"></div>
-            <img src="kaua.png.png" alt="Kauã Biscalchini">
-        </div>
-    </div>
-</section>
 
-<section class="projetos" id="projetos">
-    <p class="sec-label">Projetos</p>
-    <h2 class="sec-h2">Trabalhos e <span>Soluções.</span></h2>
-    <div class="proj-grid">
-        <div class="proj-card">
-            <div class="proj-num">01</div>
-            <h3 class="proj-title">Garagem do Frango</h3>
-            <p class="proj-desc">Sistema SaaS completo para delivery: cardápio de cliente e painel administrativo em tempo real.</p>
-        </div>
-        <div class="proj-card">
-            <div class="proj-num">02</div>
-            <h3 class="proj-title">Kadron Finance</h3>
-            <p class="proj-desc">SaaS de controle financeiro premium com suporte a relatórios PDF, metas e gráficos interativos.</p>
-        </div>
-        <div class="proj-card">
-            <div class="proj-num">03</div>
-            <h3 class="proj-title">Cartões de Visita</h3>
-            <p class="proj-desc">Experiências web interativas em 3D com efeito flip para conexões profissionais modernas.</p>
-        </div>
-    </div>
-    <div style="text-align: center; margin-top: 3.5rem; position: relative; z-index: 1;">
-        <a href="projetos.html" class="btn-primary">Ver Todos os Projetos</a>
-    </div>
-</section>
-
-<section class="contato" id="contato">
-    <p class="sec-label">Contato</p>
-    <h2 class="sec-h2">Vamos <span>conversar?</span></h2>
-    <div class="contato-grid">
-        <div class="contato-info">
-            <div class="contato-item">
-                <div class="contato-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.1 2.22 2 2 0 012.1 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg></div>
-                <div><p class="contato-label">WhatsApp</p><p class="contato-val">(16) 99782-1436</p></div>
-            </div>
-            <div class="contato-item">
-                <div class="contato-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-                <div><p class="contato-label">Email</p><p class="contato-val">contato@kadron.com</p></div>
+    <section class="sobre" id="sobre">
+        <div>
+            <p class="sec-label">Sobre</p>
+            <h2 class="sec-h2">Quem está <span>por trás.</span></h2>
+            <p class="sobre-text">Sou Kauã Biscalchini desenvolvedor focado em criar sites e sistemas que ajudam
+                empresas a vender mais e se organizar melhor. Trabalho com soluções modernas, dashboards inteligentes e
+                foco total em resultado. Cada projeto é pensado para melhorar processos, aumentar a eficiência e gerar
+                crescimento real para o negócio.</p>
+            <div class="sobre-tags">
+                <span class="tag">Inteligência Artificial</span>
+                <span class="tag">Python</span>
+                <span class="tag">Web Design</span>
             </div>
         </div>
+        <div>
+            <div class="foto-frame">
+                <div class="foto-corner tl"></div>
+                <div class="foto-corner tr"></div>
+                <div class="foto-corner bl"></div>
+                <div class="foto-corner br"></div>
+                <img src="kaua.png.png" alt="Kauã Biscalchini">
+            </div>
+        </div>
+    </section>
 
-        <form class="contato-form" action="https://formspree.io/f/meevjwjb" method="POST">
-            <input class="form-input" type="text" name="nome" placeholder="Seu nome" required />
-            <input class="form-input" type="text" name="whatsapp" placeholder="Seu WhatsApp" required />
-            <input class="form-input" type="email" name="email" placeholder="Seu e-mail" required />
-            <textarea class="form-textarea" name="mensagem" placeholder="Conte sobre seu negócio..." required></textarea>
-            <button type="submit" class="btn-primary">Enviar mensagem</button>
-        </form>
-    </div>
-</section>
+    <section class="projetos" id="projetos">
+        <p class="sec-label">Projetos</p>
+        <h2 class="sec-h2">Trabalhos e <span>Soluções.</span></h2>
+        <div class="proj-grid">
+            <div class="proj-card">
+                <div class="proj-num">01</div>
+                <h3 class="proj-title">Garagem do Frango</h3>
+                <p class="proj-desc">Sistema SaaS completo para delivery: cardápio de cliente e painel administrativo em
+                    tempo real.</p>
+            </div>
+            <div class="proj-card">
+                <div class="proj-num">02</div>
+                <h3 class="proj-title">Kadron Finance</h3>
+                <p class="proj-desc">SaaS de controle financeiro premium com suporte a relatórios PDF, metas e gráficos
+                    interativos.</p>
+            </div>
+            <div class="proj-card">
+                <div class="proj-num">03</div>
+                <h3 class="proj-title">Cartões de Visita</h3>
+                <p class="proj-desc">Experiências web interativas em 3D com efeito flip para conexões profissionais
+                    modernas.</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3.5rem; position: relative; z-index: 1;">
+            <a href="projetos.html" class="btn-primary">Ver Todos os Projetos</a>
+        </div>
+    </section>
 
-<section class="cta-final">
-    <h2>Pronto pra sair <span>na frente?</span></h2>
-    <a href="https://wa.me/5516997978466" class="btn-primary">Falar com a Kadron</a>
-</section>
+    <section class="contato" id="contato">
+        <p class="sec-label">Contato</p>
+        <h2 class="sec-h2">Vamos <span>conversar?</span></h2>
+        <div class="contato-grid">
+            <div class="contato-info">
+                <div class="contato-item">
+                    <div class="contato-icon"><svg viewBox="0 0 24 24">
+                            <path
+                                d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.1 2.22 2 2 0 012.1 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z" />
+                        </svg></div>
+                    <div>
+                        <p class="contato-label">WhatsApp</p>
+                        <p class="contato-val">(16) 99797-8466</p>
+                    </div>
+                </div>
+                <div class="contato-item">
+                    <div class="contato-icon"><svg viewBox="0 0 24 24">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                            <polyline points="22,6 12,13 2,6" />
+                        </svg></div>
+                    <div>
+                        <p class="contato-label">Email</p>
+                        <p class="contato-val">kadron_soluçoes_tecnologicas@gmail.com</p>
+                    </div>
+                </div>
+            </div>
 
-<footer>
-    <span class="footer-logo"><span>KA</span>DRON</span>
-    <p>© 2026 Kadron — Pontal, SP</p>
-</footer>
+            <form class="contato-form" action="https://formspree.io/f/meevjwjb" method="POST">
+                <input class="form-input" type="text" name="nome" placeholder="Seu nome" required />
+                <input class="form-input" type="text" name="whatsapp" placeholder="Seu WhatsApp" required />
+                <input class="form-input" type="email" name="email" placeholder="Seu e-mail" required />
+                <textarea class="form-textarea" name="mensagem" placeholder="Conte sobre seu negócio..."
+                    required></textarea>
+                <button type="submit" class="btn-primary">Enviar mensagem</button>
+            </form>
+        </div>
+    </section>
 
-<script>
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-(function animate(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animate);})();
-document.querySelectorAll('a,button').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.opacity='0';});
-    el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.opacity='1';});
-});
-</script>
+    <section class="cta-final">
+        <h2>Pronto pra sair <span>na frente?</span></h2>
+        <a href="https://wa.me/5516997978466" class="btn-primary">Falar com a Kadron</a>
+    </section>
+
+    <footer>
+        <span class="footer-logo"><span>KA</span>DRON</span>
+        <p>© 2026 Kadron — Pontal, SP</p>
+    </footer>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        const ring = document.getElementById('cursor-ring');
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
+        (function animate() { rx += (mx - rx) * .12; ry += (my - ry) * .12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animate); })();
+        document.querySelectorAll('a,button').forEach(el => {
+            el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2.5)'; ring.style.opacity = '0'; });
+            el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.opacity = '1'; });
+        });
+    </script>
 </body>
+
 </html>
